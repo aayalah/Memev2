@@ -16,9 +16,9 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var meme: UIImageView!
     
     
-    override func awakeFromNib() {
+    /*override func awakeFromNib() {
         super.awakeFromNib()
-    }
+    }*/
     
     func setContent(_ img: UIImage, labelText text: String) {
         meme.image = img

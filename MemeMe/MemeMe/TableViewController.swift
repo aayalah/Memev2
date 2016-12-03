@@ -9,19 +9,25 @@
 import UIKit
 
 
-let memes = MemeModel.model
-let reuseIdentifier = "TableViewCell"
 
-class TableViewController: UITableViewController {
 
+class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var memes: MemeModel!
+    let reuseIdentifier = "TableViewCell"
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        memes = MemeModel.model
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,23 +35,26 @@ class TableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return memes.getCount()
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! TableViewCell
         
         
-        cell.setContent(memes.getMemeImage(indexPath.row), labelText: memes.getTopLabel(indexPath.row) + "..." + memes.getBottomLabel(indexPath.row))
+        //cell.setContent(memes.getMemeImage(indexPath.row), labelText: memes.getTopLabel(indexPath.row) + "..." + memes.getBottomLabel(indexPath.row))
+        cell.meme.image = memes.getMemeImage(indexPath.row)
+        cell.label.text = memes.getTopLabel(indexPath.row) + "..." + memes.getBottomLabel(indexPath.row)
 
 
         return cell
@@ -62,6 +71,7 @@ class TableViewController: UITableViewController {
 
     /*
     // Override to support editing the table view.
+     @IBOutlet weak var tableView: UITableView!
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
