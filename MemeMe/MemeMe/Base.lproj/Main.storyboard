@@ -349,12 +349,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hc2-4o-t78">
-                                <rect key="frame" x="-4" y="72" width="383" height="595"/>
+                                <rect key="frame" x="-4" y="28" width="383" height="659"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VAO-Ti-cbI" firstAttribute="top" secondItem="hc2-4o-t78" secondAttribute="bottom" id="0Hv-J6-d4g"/>
+                            <constraint firstAttribute="bottom" secondItem="hc2-4o-t78" secondAttribute="bottom" constant="-20" id="XbP-MM-K8F"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hc2-4o-t78" secondAttribute="trailing" constant="-20" id="eVo-bY-a0v"/>
                             <constraint firstItem="hc2-4o-t78" firstAttribute="top" secondItem="Re6-1E-c19" secondAttribute="bottom" constant="8" symbolic="YES" id="ens-0d-cFJ"/>
                             <constraint firstItem="hc2-4o-t78" firstAttribute="leading" secondItem="Cyp-WN-qYR" secondAttribute="leadingMargin" constant="-20" id="nbr-hx-9VI"/>
@@ -384,7 +384,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="shc-3U-nNu"/>
-        <segue reference="Nsy-hy-UFU"/>
+        <segue reference="wFs-86-HAs"/>
         <segue reference="Aer-P9-ROx"/>
     </inferredMetricsTieBreakers>
 </document>
