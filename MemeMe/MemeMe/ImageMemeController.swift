@@ -84,6 +84,7 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     
     //Formats a textfield
     private func formatTextfields(label: UITextField, text: String) {
+        label.borderStyle = .none
         label.defaultTextAttributes = Constants().MEME_TEXT_ATTRIBUTES
         label.text = text
         label.textAlignment = .center
