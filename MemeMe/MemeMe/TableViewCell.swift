@@ -14,18 +14,14 @@ class TableViewCell: UITableViewCell {
   
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var meme: UIImageView!
+
     
-    
-    /*override func awakeFromNib() {
-        super.awakeFromNib()
-    }*/
-    
+    //Sets content of cell
     func setContent(_ img: UIImage, labelText text: String) {
         meme.image = img
-        label.text = text
+        label.text = text       
     }
-    
-    
+
     
     
     

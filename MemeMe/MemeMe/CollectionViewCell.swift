@@ -12,8 +12,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     
-    
-    
+    //sets content of cell
     func setContent(_ img: UIImage) {
         image.image = img
     }

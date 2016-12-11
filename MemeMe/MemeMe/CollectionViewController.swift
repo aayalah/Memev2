@@ -9,20 +9,21 @@
 import UIKit
 
 
-class CollectionViewController: UICollectionViewController {
-    private let memes = MemeModel.model
+class CollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+   
     
     
     private let reuseIdentifier = "collectionCell"
-
+    private var memes: MemeModel!
+    @IBOutlet weak var collView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        memes = MemeModel.model
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -30,6 +31,10 @@ class CollectionViewController: UICollectionViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        collView.reloadData()
     }
 
     /*
@@ -44,24 +49,28 @@ class CollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return memes.getCount()
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! CollectionViewCell
-        cell.setContent(memes.getMemeImage(indexPath.row))
+        cell.image.image = memes.getMemeImage(indexPath.row)
     
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "chooseMeme", sender: indexPath)
+    }
+
 
     // MARK: UICollectionViewDelegate
 
@@ -93,5 +102,18 @@ class CollectionViewController: UICollectionViewController {
     
     }
     */
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "chooseMeme" {
+            let controller = segue.destination as! EditViewController
+            controller.index = (sender as! IndexPath).row
+        }
+        
+    }
+    
+    
 
 }

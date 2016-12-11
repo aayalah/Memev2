@@ -13,6 +13,7 @@
 		D038FBE71DEBC80700876C09 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038FBE61DEBC80700876C09 /* TableViewCell.swift */; };
 		D038FBEB1DECC7E400876C09 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038FBEA1DECC7E400876C09 /* TableViewController.swift */; };
 		D038FBED1DECC94C00876C09 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038FBEC1DECC94C00876C09 /* CollectionViewController.swift */; };
+		D038FBF11DF6703800876C09 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038FBF01DF6703800876C09 /* EditViewController.swift */; };
 		D0511AE91DC69F80000C25E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0511AE81DC69F80000C25E0 /* AppDelegate.swift */; };
 		D0511AEB1DC69F80000C25E0 /* ImageMemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0511AEA1DC69F80000C25E0 /* ImageMemeController.swift */; };
 		D0511AEE1DC69F80000C25E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0511AEC1DC69F80000C25E0 /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		D038FBE61DEBC80700876C09 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		D038FBEA1DECC7E400876C09 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		D038FBEC1DECC94C00876C09 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		D038FBF01DF6703800876C09 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		D0511AE51DC69F80000C25E0 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0511AE81DC69F80000C25E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0511AEA1DC69F80000C25E0 /* ImageMemeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMemeController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				D038FBE61DEBC80700876C09 /* TableViewCell.swift */,
 				D038FBEA1DECC7E400876C09 /* TableViewController.swift */,
 				D038FBEC1DECC94C00876C09 /* CollectionViewController.swift */,
+				D038FBF01DF6703800876C09 /* EditViewController.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				TargetAttributes = {
 					D0511AE41DC69F7F000C25E0 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = ES62S6N6LH;
 						ProvisioningStyle = Automatic;
 					};
 					D0511AF81DC69F80000C25E0 = {
@@ -285,6 +289,7 @@
 				D0511AE91DC69F80000C25E0 /* AppDelegate.swift in Sources */,
 				D038FBE71DEBC80700876C09 /* TableViewCell.swift in Sources */,
 				D038FBA31DD661D000876C09 /* Constants.swift in Sources */,
+				D038FBF11DF6703800876C09 /* EditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +443,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ES62S6N6LH;
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MobileApps.MemeMe;
@@ -450,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ES62S6N6LH;
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MobileApps.MemeMe;

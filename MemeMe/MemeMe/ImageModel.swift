@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-
+//Uses Singleton pattern to instantiate one instance of MemeModel for all view controllers
 class MemeModel {
     
     private var imageList = [ImageModel]()
@@ -28,6 +28,10 @@ class MemeModel {
         
     }
     
+    func replaceImage(topLabel top: String, bottomLabel bottom: String, originalImage oImage: UIImage, memedImage meme: UIImage, index: Int){
+        imageList[index] = ImageModel(topLabel: top, bottomLabel: bottom, originalImage: oImage, memedImage: meme)
+    }
+    
     func getMemeImage(_ index: Int) -> UIImage {
         return imageList[index].memedImage
     }
@@ -44,20 +48,8 @@ class MemeModel {
     func getCount() -> Int {
         return imageList.count
     }
+    
+    func getOriginalImage(_ index: Int) -> UIImage {
+        return imageList[index].originalImage
+    }
 }
-
-
-/*class MemeModel {
-    
-    private var model: Images
-    
-    init(){
-        self.model = Images()
-    }
-    
-    public func getInstance() -> Images {
-        return model
-    }
-    
-    
-}*/

@@ -24,31 +24,39 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var topLabelEdited = false
     var bottomLabelEdited = false
-
+    var index = -1
+    
     let memes = MemeModel.model
     
-    //Resets view to original configuration
-   /* @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        
-        topLabel.endEditing(true)
-        bottomLabel.endEditing(true)
-        ImageView.image = nil
-        topLabel.text = Constants().TOP
-        bottomLabel.text = Constants().BOTTOM
-        actionButton.isEnabled = false
-        cancelButton.isEnabled = false
-        topLabelEdited = false
-        bottomLabelEdited = false
-    }*/
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         setKeyboardNotifications()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         formatTextfields(label: topLabel, text: Constants().TOP)
         formatTextfields(label: bottomLabel, text: Constants().BOTTOM)
+        if index != -1 {
+            setUpEditView()
+        }
+    }
+    
+    
+    
+    
+    private func setUpEditView() {
+        
+        topLabel.text = memes.getTopLabel(index)
+        bottomLabel.text = memes.getBottomLabel(index)
+        ImageView.image = memes.getOriginalImage(index)
+        topLabelEdited = true
+        bottomLabelEdited = true
         
     }
+    
+    
+    
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -67,21 +75,16 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     //Sets intial button configuration
     private func setInitialStateOfButtons() {
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
-        actionButton.isEnabled = false
-        cancelButton.isEnabled = false
+        actionButton.isEnabled = index != -1
+        cancelButton.isEnabled = index != -1
         
     }
     
-    let memeTextAttributes: [String: Any] = [
-        NSStrokeColorAttributeName: UIColor.black,
-        NSForegroundColorAttributeName: UIColor.white,
-        NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName: -3.0]
-    
+
     
     //Formats a textfield
     private func formatTextfields(label: UITextField, text: String) {
-        label.defaultTextAttributes = memeTextAttributes
+        label.defaultTextAttributes = Constants().MEME_TEXT_ATTRIBUTES
         label.text = text
         label.textAlignment = .center
     }
@@ -89,8 +92,7 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     //Sets up the delegates
     private func setUpDelegates() {
         ImagePicker.delegate = self
-        topLabel.delegate = self
-        bottomLabel.delegate = self
+
     }
     
     //Adds notifications to keyboard events
@@ -109,17 +111,16 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     
     //Moves view when keyboar appears
     @objc private func keyboardWillShow(notification: Notification) {
-        if self.view.frame.origin.y == 0 && !topLabel.isFirstResponder{
-            self.view.frame.origin.y -= calculateKeyboardHeight(notification: notification)
+        if !topLabel.isFirstResponder{
+            self.view.frame.origin.y = -calculateKeyboardHeight(notification: notification)
         }
 
     }
     
     //Moves view when keyboard is disappears
     @objc private func keyboardWillHide(notification: Notification) {
-        if self.view.frame.origin.y != 0{
-            self.view.frame.origin.y += calculateKeyboardHeight(notification: notification)
-        }
+        
+        self.view.frame.origin.y = 0
 
     }
     
@@ -135,7 +136,7 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
         navBar.isHidden = true
         toolBar.isHidden = true
         
-        UIGraphicsBeginImageContext(self.view.frame.size)
+        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, true, 0.0)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -162,13 +163,16 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     
     //Saves the meme, though  at the moment it does not do anything, will be changed in the next version
     private func saveMeme(image: UIImage) {
-       memes.addImage(topLabel: topLabel.text!, bottomLabel: bottomLabel.text!, originalImage: ImageView.image!, memedImage: image)
+        if index == -1 {
+            
+            memes.addImage(topLabel: topLabel.text!, bottomLabel: bottomLabel.text!, originalImage: ImageView.image!, memedImage: image)
+        } else {
+            memes.replaceImage(topLabel: topLabel.text!, bottomLabel: bottomLabel.text!, originalImage: ImageView.image!, memedImage: image, index: index)
+        }
+       
         performSegue(withIdentifier: "showMemes", sender: nil)
-
-    
+   
     }
-
-
 
     //Brings up the photo library
     @IBAction func displayPhotoLibrary(_ sender: UIBarButtonItem) {
@@ -199,17 +203,20 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     
     //Captures image that has been taken/chosen from camera or photo library
     func imagePickerController(_ picker: UIImagePickerController,didFinishPickingMediaWithInfo info: [String : Any]) {
-        //print(info[UIImagePickerControllerOriginalImage] )
         let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         ImageView.image = selectedImage
         ImageView.contentMode = .scaleAspectFit
         dismiss(animated: true, completion: nil)
         actionButton.isEnabled = true
         cancelButton.isEnabled = true
+        
     }
 
     //Determines whether text in textfield has been edited or not. If it has not the text is cleared
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if(ImageView.image == nil) {
+            return false
+        }
         if (textField.tag == 0 && !topLabelEdited) {
             textField.text = ""
             topLabelEdited = true
@@ -228,23 +235,15 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
         return true
     }
     
-    
     //Dismisses keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-  
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
-
-    
-    
-    
-    
 
 }
 
