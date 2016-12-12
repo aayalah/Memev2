@@ -12,14 +12,16 @@ class TableViewCell: UITableViewCell {
     
     
   
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var meme: UIImageView!
+    @IBOutlet weak var topLabel: UILabel!
 
     
     //Sets content of cell
-    func setContent(_ img: UIImage, labelText text: String) {
+    func setContent(_ img: UIImage, topText tText: String, bottomText bText: String) {
         meme.image = img
-        label.text = text       
+        topLabel.text = "\(tText)"
+        bottomLabel.text = ".....\(bText)"
     }
 
     

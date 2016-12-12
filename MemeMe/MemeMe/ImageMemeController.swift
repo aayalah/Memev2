@@ -76,7 +76,7 @@ class ImageMemeController: UIViewController, UIImagePickerControllerDelegate, UI
     private func setInitialStateOfButtons() {
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         actionButton.isEnabled = index != -1
-        cancelButton.isEnabled = index != -1
+        cancelButton.isEnabled = true
         
     }
     

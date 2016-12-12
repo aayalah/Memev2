@@ -21,12 +21,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         memes = MemeModel.model
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,19 +34,10 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             present(controller, animated: true, completion: nil)
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
 
     // MARK: - Table view data source
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -63,7 +48,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! TableViewCell
         
         
-        cell.setContent(memes.getMemeImage(indexPath.row), labelText: memes.getTopLabel(indexPath.row) + "..." + memes.getBottomLabel(indexPath.row))
+        cell.setContent(memes.getMemeImage(indexPath.row), topText: memes.getTopLabel(indexPath.row), bottomText: memes.getBottomLabel(indexPath.row))
         cell.meme.image = memes.getMemeImage(indexPath.row)
         return cell
     }
